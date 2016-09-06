@@ -47,8 +47,8 @@ abstract class Facade
 
         if (is_null($instance))
             throw new \Exception(get_class($instance).' is error');
-
-        call_user_func_array([$instance,$method],$args);
+        
+        return call_user_func_array([$instance,$method],$args);
     }
 
 

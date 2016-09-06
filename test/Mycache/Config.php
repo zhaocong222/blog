@@ -9,12 +9,11 @@ namespace Mycache;
 
 class Config implements \ArrayAccess
 {
-    private static $configs = [];
+    private $configs = [];
 
     public function __construct()
     {
-        $configs = require './config/cache.php';
-        
+        $this->configs = require './config/cache.php';
     }
 
     public function offsetExists($offset)
@@ -24,7 +23,9 @@ class Config implements \ArrayAccess
 
     public function offsetGet($offset)
     {
-        // TODO: Implement offsetGet() method.
+        if (!isset($this->configs[$offset]))
+            throw new \Exception('cache drive is must.');
+        return $this->configs[$offset];
     }
 
     public function offsetSet($offset, $value)

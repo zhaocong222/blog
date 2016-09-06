@@ -7,15 +7,27 @@
  */
 namespace Mycache\core;
 use Mycache\facades\Facade;
+use Mycache\Config as Con;
 
 class App
 {
-    protected static $app = [];
+    public $app = null;
 
-    public function init()
+    public $config = null;
+
+    public function init(Con $config)
     {
         $this->register();
+        $this->setConfig($config);
         return $this;
+    }
+
+    /*
+     * 设置配置
+     */
+    private function setConfig($config)
+    {
+        $this->config = $config;
     }
 
     /*
@@ -26,7 +38,7 @@ class App
         foreach ($this->registerClass() as $key=>$val){
             //这里暂时简单点直接new ,后期改成注入到容器中
             $name = $this->binds()[$key];
-            self::$app[$key] = new $name;
+            $this->app[$key] = new $name($this);
             class_alias($val,$key);
         }
     }
@@ -36,14 +48,14 @@ class App
      */
     public function registerFacade()
     {
-        Facade::setFacadeApplication(self::$app);
+        Facade::setFacadeApplication($this->app);
         return $this;
     }
 
     private function binds()
     {
         return [
-            'Cache'=>'\Mycache\contract\CacheManger',
+            'Cache'=>'\Mycache\contract\CacheManger'
         ];
     }
 

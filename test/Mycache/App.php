@@ -11,4 +11,4 @@ require './Load.php';
 spl_autoload_register("AutoLoad::loader");
 
 $app = new core\App();
-$app->init()->registerFacade();
+$app->init(new Config())->registerFacade();

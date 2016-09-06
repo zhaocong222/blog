@@ -14,4 +14,7 @@ define('base_path',__DIR__);
 require './App.php';
 
 
-Cache::put('user','name');
+//Cache::put('age','12',10);
+
+//echo Cache::store('file')->get('age');
+echo Cache::get('age');

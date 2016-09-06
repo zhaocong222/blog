@@ -6,7 +6,7 @@
  * Time: 下午2:34
  */
 return [
-    'drive'=>'file',
+    'drive'=>'redis',
 
     'stores'=>[
 
